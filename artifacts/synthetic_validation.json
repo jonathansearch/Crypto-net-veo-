@@ -1,0 +1,192 @@
+{
+  "protocol": "dataset synthétique RATISS : attaques topologiques pures, invisibilité statistique vérifiée par tests KS (seuil 0.01, >=90% features indistinguables)",
+  "honnetete": {
+    "weaving": {
+      "features_indistinguishables": 16,
+      "total_features": 16,
+      "fraction": 1.0,
+      "min_p_value": 0.08796359322509063,
+      "honnete": true
+    },
+    "phase_transition": {
+      "features_indistinguishables": 15,
+      "total_features": 16,
+      "fraction": 0.9375,
+      "min_p_value": 1.2904861638174625e-05,
+      "honnete": true
+    },
+    "slow_mutation": {
+      "features_indistinguishables": 15,
+      "total_features": 16,
+      "fraction": 0.9375,
+      "min_p_value": 0.005974121209903183,
+      "honnete": true
+    }
+  },
+  "n_windows": 478,
+  "topo_ms_per_window": 5.44,
+  "results": {
+    "classique": {
+      "phase_transition": {
+        "recall": 0.6724137931034483,
+        "fpr": 0.020134228187919462,
+        "threshold": 0.45322505761321863
+      },
+      "slow_mutation": {
+        "recall": 0.05172413793103448,
+        "fpr": 0.020134228187919462,
+        "threshold": 0.45322505761321863
+      },
+      "weaving": {
+        "recall": 0.06896551724137931,
+        "fpr": 0.020134228187919462,
+        "threshold": 0.45322505761321863
+      }
+    },
+    "topo_P_sig": {
+      "phase_transition": {
+        "recall": 0.017241379310344827,
+        "fpr": 0.020134228187919462,
+        "threshold": 0.27499193889768775
+      },
+      "slow_mutation": {
+        "recall": 0.06896551724137931,
+        "fpr": 0.020134228187919462,
+        "threshold": 0.27499193889768775
+      },
+      "weaving": {
+        "recall": 0.034482758620689655,
+        "fpr": 0.020134228187919462,
+        "threshold": 0.27499193889768775
+      }
+    },
+    "topo_edge": {
+      "phase_transition": {
+        "recall": 0.22413793103448276,
+        "fpr": 0.020134228187919462,
+        "threshold": 0.0815101621960067
+      },
+      "slow_mutation": {
+        "recall": 0.05172413793103448,
+        "fpr": 0.020134228187919462,
+        "threshold": 0.0815101621960067
+      },
+      "weaving": {
+        "recall": 0.017241379310344827,
+        "fpr": 0.020134228187919462,
+        "threshold": 0.0815101621960067
+      }
+    },
+    "topo_drift": {
+      "phase_transition": {
+        "recall": 0.0,
+        "fpr": 0.020134228187919462,
+        "threshold": 2.845797901234726
+      },
+      "slow_mutation": {
+        "recall": 0.017241379310344827,
+        "fpr": 0.020134228187919462,
+        "threshold": 2.845797901234726
+      },
+      "weaving": {
+        "recall": 0.017241379310344827,
+        "fpr": 0.020134228187919462,
+        "threshold": 2.845797901234726
+      }
+    },
+    "spectral_PR": {
+      "phase_transition": {
+        "recall": 0.9482758620689655,
+        "fpr": 0.020134228187919462,
+        "threshold": 8.713886187839659
+      },
+      "slow_mutation": {
+        "recall": 0.29310344827586204,
+        "fpr": 0.020134228187919462,
+        "threshold": 8.713886187839659
+      },
+      "weaving": {
+        "recall": 0.034482758620689655,
+        "fpr": 0.020134228187919462,
+        "threshold": 8.713886187839659
+      }
+    },
+    "spectral_negE": {
+      "phase_transition": {
+        "recall": 0.0,
+        "fpr": 0.02348993288590604,
+        "threshold": 0.575
+      },
+      "slow_mutation": {
+        "recall": 0.034482758620689655,
+        "fpr": 0.02348993288590604,
+        "threshold": 0.575
+      },
+      "weaving": {
+        "recall": 0.0,
+        "fpr": 0.02348993288590604,
+        "threshold": 0.575
+      }
+    },
+    "frustration": {
+      "phase_transition": {
+        "recall": 0.29310344827586204,
+        "fpr": 0.03355704697986577,
+        "threshold": 0.44285714285714284
+      },
+      "slow_mutation": {
+        "recall": 0.06896551724137931,
+        "fpr": 0.03355704697986577,
+        "threshold": 0.44285714285714284
+      },
+      "weaving": {
+        "recall": 0.08620689655172414,
+        "fpr": 0.03355704697986577,
+        "threshold": 0.44285714285714284
+      }
+    },
+    "KZ_cumul": {
+      "phase_transition": {
+        "recall": 0.8793103448275862,
+        "fpr": 0.020134228187919462,
+        "threshold": 4.141486249869925
+      },
+      "slow_mutation": {
+        "recall": 0.3275862068965517,
+        "fpr": 0.020134228187919462,
+        "threshold": 4.141486249869925
+      },
+      "weaving": {
+        "recall": 0.7931034482758621,
+        "fpr": 0.020134228187919462,
+        "threshold": 4.141486249869925
+      }
+    },
+    "fusion": {
+      "phase_transition": {
+        "recall": 0.9230769230769231,
+        "fpr": 0.025974025974025976
+      },
+      "slow_mutation": {
+        "recall": 0.06451612903225806,
+        "fpr": 0.025974025974025976
+      },
+      "weaving": {
+        "recall": 0.12,
+        "fpr": 0.025974025974025976
+      }
+    },
+    "fusion_weights": {
+      "w_classical": 0.5,
+      "w_topo": 0.5,
+      "recall_mean": 0.3691976840363937,
+      "fpr": 0.025974025974025976,
+      "recalls": {
+        "phase_transition": 0.9230769230769231,
+        "slow_mutation": 0.06451612903225806,
+        "weaving": 0.12
+      }
+    }
+  },
+  "runtime_s": 7.5
+}
