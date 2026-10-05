@@ -4,17 +4,17 @@
 
 [![RATISS Labs](https://img.shields.io/badge/RATISS_Labs-Deep_Tech_Sovereign-06b6d4)](https://github.com/jonathansearch)
 
-# RATISS-Cyber — Détection d'intrusion par topologie des transitions de phase
+# RATISS-Cyber — Intrusion detection by topology of phase transitions
 
-**POC RATISS Labs — Jonathan Evina.** Détection d'intrusion (NIDS) qui couple
-les détecteurs classiques (symptômes) à l'arsenal topologique RATISS
-(Vietoris-Rips, P_sig, Kibble-Zurek, frustration). Chaque alerte est **prouvée**
-(SHA-256). Cible : SMI CybIA, Douala, novembre 2026.
+**RATISS Labs POC — Jonathan Evina.** An intrusion detection system (NIDS) that couples
+classical detectors (symptoms) with the RATISS topological arsenal
+(Vietoris-Rips, P_sig, Kibble-Zurek, frustration). Every alert is **proven**
+(SHA-256). Target: SMI CybIA, Douala, November 2026.
 
-![Résultats du système](docs/figures/doc_results_summary.png)
+![System results](docs/figures/doc_results_summary.png)
 
-Sur trafic **réel** (UNSW-NB15) comme sur synthétique KS-validé, la fusion
-adaptative surpasse le classique — et atteint la **borne oracle**.
+On **real** traffic (UNSW-NB15) as well as on KS-validated synthetic data, the
+adaptive fusion outperforms the classical approach — and reaches the **oracle bound**.
 
 ---
 
@@ -26,19 +26,19 @@ cd Crypto-net-veo-
 pip install -r requirements.txt
 ```
 
-### Reproduire les benchmarks
+### Reproduce the benchmarks
 
 ```bash
-# Preuve sur attaques synthétiques (invisibles aux stats, tests KS)
+# Proof on synthetic attacks (invisible to stats, KS tests)
 PYTHONPATH=. python benchmarks/run_synthetic_validation.py
 
-# Validation sur trafic réel UNSW-NB15 (175k/87k)
+# Validation on real UNSW-NB15 traffic (175k/87k)
 PYTHONPATH=. python benchmarks/run_unsw_validation.py
 
-# Fusion adaptative (routeur à centroïdes) — borne oracle
+# Adaptive fusion (centroid router) — oracle bound
 PYTHONPATH=. python benchmarks/run_adaptive_fusion.py
 
-# Robustesse temporelle (TimeSeriesSplit 5-fold)
+# Temporal robustness (TimeSeriesSplit 5-fold)
 PYTHONPATH=. python benchmarks/run_temporal_cv.py
 ```
 
@@ -48,94 +48,94 @@ PYTHONPATH=. python benchmarks/run_temporal_cv.py
 # API (port 12000)
 PYTHONPATH=. python -m uvicorn api.server:app --port 12000
 
-# Dashboard Streamlit (port 12001)
+# Streamlit dashboard (port 12001)
 PYTHONPATH=. python -m streamlit run dashboard/app.py --server.port 12001
 
-# Dashboard web React/Vite (optionnel, port 12003)
+# React/Vite web dashboard (optional, port 12003)
 cd dashboard/web && npm install --legacy-peer-deps && npx vite preview --port 12003
 ```
 
-![Schéma d'installation](docs/figures/doc_installation.png)
+![Installation diagram](docs/figures/doc_installation.png)
 
 ---
 
 ## 🧠 Architecture
 
-Flux réseau → fenêtrage → classiques (symptômes) + arsenal topologique RATISS
-(structure) → fusion adaptative (routeur centroïdes) → alerte + preuve SHA-256.
+Network flow → windowing → classical (symptoms) + RATISS topological arsenal
+(structure) → adaptive fusion (centroid router) → alert + SHA-256 proof.
 
-![Architecture RATISS-Cyber](docs/figures/doc_architecture.png)
+![RATISS-Cyber architecture](docs/figures/doc_architecture.png)
 
 ---
 
-## 📊 Résultats (reproductibles)
+## 📊 Results (reproducible)
 
-### Avantage unique — synthétique contrôlé
+### Unique advantage — controlled synthetic
 
-Attaques conçues **invisibles aux statistiques** (tests KS ✅) :
+Attacks designed to be **invisible to statistics** (KS tests ✅):
 
-- **PR** détecte la transition de phase : rappel **0.95** vs 0.67.
-- **KZ cumul** détecte le tissage : rappel **0.79** vs 0.07.
+- **PR** detects the phase transition: recall **0.95** vs 0.67.
+- **KZ cumul** detects the weaving: recall **0.79** vs 0.07.
 
-![Rappel par canal](docs/figures/fig1_rappel_par_canal.png)
+![Recall per channel](docs/figures/fig1_rappel_par_canal.png)
 
-### Tráfic réel UNSW-NB15
+### Real traffic UNSW-NB15
 
-175 341 train / 87 000 test, 9 familles modernes :
+175,341 train / 87,000 test, 9 modern families:
 
-| Famille | Classique | Meilleur RATISS |
+| Family | Classical | Best RATISS |
 |---|---|---|
 | Generic | 0.02 | **KZ cumul 0.51** |
 | Exploits | 0.17 | frustration |
 | Fuzzers | 0.14 | edge |
-| DoS | 0.07 | entropie |
+| DoS | 0.07 | entropy |
 
-### Fusion adaptative ≈ borne oracle
+### Adaptive fusion ≈ oracle bound
 
-| Méthode | Rappel |
+| Method | Recall |
 |---|---|
-| Statique | 0.175 |
-| **Adaptative (routeur)** | **0.339** |
+| Static | 0.175 |
+| **Adaptive (router)** | **0.339** |
 | Oracle | 0.328 |
 
-### Robustesse temporelle (CV 5-fold)
+### Temporal robustness (5-fold CV)
 
-**0.342 ± 0.227** — robuste en moyenne, variable selon régime (documentée).
-La détection de rupture + recalibration aide sur le Fold 4 (+88%).
+**0.342 ± 0.227** — robust on average, variable by regime (documented).
+Rupture detection + recalibration helps on Fold 4 (+88%).
 
-![Trajectoire KZ](docs/figures/fig3_trajectoire_kz.png)
-
----
-
-## 🖥️ Dashboard web (React/Vite)
-
-Interface sombre premium avec les métriques réelles : 4 cartes (fusion adaptative,
-KZ sur Generic, CV temporelle, fenêtres UNSW), table des canaux topologiques,
-live feed, bouton de scan IDS. Construite avec shadcn/ui + Tailwind.
-
-![Dashboard IDS](docs/figures/dashboard_ids.png)
-
-Voir `dashboard/web/README.md` pour le détail.
+![KZ trajectory](docs/figures/fig3_trajectoire_kz.png)
 
 ---
 
-## 🧰 Contenu du dépôt
+## 🖥️ Web dashboard (React/Vite)
 
-- `ratiss_topo/` — moteur topologique + arsenal (hystérésis, KZ, frustration, LCT)
-- `cyber/` — classiques, fusion, fusion adaptative, régime, calibration
-- `benchmarks/` — phases 1-5 + UNSW + adaptative + CV + dynamique
-- `api/` — API FastAPI (9 canaux, preuve SHA-256, mémoire KZ)
-- `dashboard/app.py` — dashboard Streamlit temps réel (mode campagne)
-- `dashboard/web/` — interface React/Vite (métriques réelles)
+Premium dark interface with the real metrics: 4 cards (adaptive fusion,
+KZ on Generic, temporal CV, UNSW windows), table of the topological channels,
+live feed, IDS scan button. Built with shadcn/ui + Tailwind.
+
+![IDS dashboard](docs/figures/dashboard_ids.png)
+
+See `dashboard/web/README.md` for the details.
+
+---
+
+## 🧰 Repository content
+
+- `ratiss_topo/` — topological engine + arsenal (hysteresis, KZ, frustration, LCT)
+- `cyber/` — classical detectors, fusion, adaptive fusion, regime, calibration
+- `benchmarks/` — phases 1-5 + UNSW + adaptive + CV + dynamic
+- `api/` — FastAPI API (9 channels, SHA-256 proof, KZ memory)
+- `dashboard/app.py` — real-time Streamlit dashboard (campaign mode)
+- `dashboard/web/` — React/Vite interface (real metrics)
 - `datasets/UNSW-NB15/` — dataset (Git LFS)
-- `docs/` — phases, figures, papier LaTeX/PDF
+- `docs/` — phases, figures, LaTeX/PDF paper
 
-## 🗺️ Feuille de route
+## 🗺️ Roadmap
 
-Fondations → couplage → avantage unique → arsenal → fusion + figures →
-**SMI CybIA** : UNSW + adaptative + CV + rupture.
+Foundations → coupling → unique advantage → arsenal → fusion + figures →
+**SMI CybIA**: UNSW + adaptive + CV + rupture.
 
 ## 🙏 Citations
 
-- UNSW-NB15 : https://research.unsw.edu.au/projects/unsw-nb15-dataset
-- NSL-KDD : https://www.unb.ca/cic/datasets/nsl.html
+- UNSW-NB15: https://research.unsw.edu.au/projects/unsw-nb15-dataset
+- NSL-KDD: https://www.unb.ca/cic/datasets/nsl.html
