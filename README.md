@@ -21,7 +21,7 @@ adaptive fusion outperforms the classical approach — and reaches the **oracle 
 ## ⬇️ Installation
 
 ```bash
-git clone https://github.com/samajonathan9-source/Crypto-net-veo-.git
+git clone https://github.com/jonathansearch/Crypto-net-veo-.git
 cd Crypto-net-veo-
 pip install -r requirements.txt
 ```
